@@ -1,0 +1,7 @@
+package com.olbius.core;
+
+public interface ObjectGraph {
+	
+	void setGraph(Graph graph);
+	
+}
