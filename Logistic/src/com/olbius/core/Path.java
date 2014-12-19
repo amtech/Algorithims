@@ -9,4 +9,6 @@ public interface Path extends ObjectGraph{
 	void addTarget(Node node);
 	
 	boolean contains(Node node);
+	
+	boolean contains(Path path);
 }
