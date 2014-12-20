@@ -1,6 +1,6 @@
 package com.olbius.core;
 
-public class Logistic implements Algorithm{
+public class Logistic implements Algorithm {
 	Node start;
 	Node[] target;
 	Graph graph;
