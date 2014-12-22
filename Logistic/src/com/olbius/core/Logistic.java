@@ -29,4 +29,9 @@ public class Logistic implements Algorithm {
 		
 		return null;
 	}
+
+	@Override
+	public Graph getGraph() {
+		return graph;
+	}
 }
