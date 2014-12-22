@@ -10,6 +10,12 @@ public class GraphImpl implements Graph{
 	private TreeSet<Node> nodes;
 	private Map<Node, Map<Node, Edge>> edges;
 	
+	public GraphImpl() {
+		nodes = new TreeSet<Node>();
+		edges = new HashMap<Node, Map<Node,Edge>>();
+		size = 0;
+	}
+	
 	@Override
 	public int getSize() {
 		return size;
@@ -38,7 +44,7 @@ public class GraphImpl implements Graph{
 	@Override
 	public Node getNode(Object name) {
 		Node node = new NodeImpl((int) name);
-		return nodes.floor(node);
+		return nodes.contains(node)?nodes.floor(node):null;
 	}
 
 	@Override
@@ -96,5 +102,13 @@ public class GraphImpl implements Graph{
 			nodes.add(target);
 			size++;
 		}
+	}
+	
+	@Override
+	public String toString() {
+		String string = "";
+		string += nodes.toString();
+		string += "\n" + edges.toString();
+		return string;
 	}
 }

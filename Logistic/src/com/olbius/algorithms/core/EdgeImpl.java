@@ -17,6 +17,12 @@ public class EdgeImpl implements Edge{
 		this.weight = weight;
 	}
 	
+	public EdgeImpl(int start, int target, int weight) {
+		this.start = new NodeImpl(start);
+		this.target = new NodeImpl(target);
+		this.weight = weight;
+	}
+	
 	@Override
 	public Node getStart() {
 		return start;
@@ -37,4 +43,8 @@ public class EdgeImpl implements Edge{
 		this.weight = (Integer)weight;
 	}
 	
+	@Override
+	public String toString() {
+		return start + " " + target + " " + weight;
+	}
 }

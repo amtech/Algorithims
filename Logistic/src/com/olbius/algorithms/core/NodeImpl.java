@@ -31,4 +31,8 @@ public class NodeImpl implements Node{
 		return index;
 	}
 
+	@Override
+	public String toString() {
+		return Integer.toString(index);
+	}
 }

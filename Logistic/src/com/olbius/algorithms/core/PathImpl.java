@@ -1,5 +1,6 @@
 package com.olbius.algorithms.core;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class PathImpl implements Path{
@@ -9,6 +10,7 @@ public class PathImpl implements Path{
 	
 	public PathImpl(Graph graph) {
 		this.graph = graph;
+		path = new ArrayList<Node>();
 	}
 	
 	@Override
@@ -90,4 +92,8 @@ public class PathImpl implements Path{
 		return path.get(index);
 	}
 
+	@Override
+	public String toString() {
+		return path.toString();
+	}
 }

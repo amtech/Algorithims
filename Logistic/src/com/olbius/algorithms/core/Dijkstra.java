@@ -32,6 +32,8 @@ public class Dijkstra implements Algorithm{
 		
 		dist.put(v, 0);
 		
+		Q.add(v);
+		
 		for(Node node : graph.getNodes()) {
 			if(!node.equals(start)) {
 				dist.put(node, Integer.MAX_VALUE);
@@ -42,7 +44,7 @@ public class Dijkstra implements Algorithm{
 		while(!Q.isEmpty()) {
 			int min = Integer.MAX_VALUE;
 			for(Node node : Q) {
-				if(dist.get(node) < min) {
+				if(dist.get(node) <= min) {
 					min = dist.get(node);
 					u = node;
 				}
