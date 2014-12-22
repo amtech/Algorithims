@@ -7,10 +7,18 @@ import java.util.Set;
 
 public class Dijkstra implements Algorithm{
 	
-	Graph graph;
-	Node start;
-	Node target;
+	private Graph graph;
+	private Node start;
+	private Node target;
 	
+	
+	public void setStart(Node start) {
+		this.start = start;
+	}
+	
+	public void setTarget(Node target) {
+		this.target = target;
+	}
 	
 	@Override
 	public Object runAlgorithm() {
