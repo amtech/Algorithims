@@ -1,7 +1,9 @@
 package com.olbius.algorithms.core;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -45,6 +47,9 @@ public class Dijkstra implements Algorithm{
 					u = node;
 				}
 			}
+			
+			if(u.equals(target)) break;
+			
 			Q.remove(u);
 			
 			Node[] nodes = graph.getNext(u);
@@ -59,7 +64,24 @@ public class Dijkstra implements Algorithm{
 			}
 		}
 		
-		return null;
+		List<Node> list = new ArrayList<Node>();
+		
+		u = target;
+		
+		while(!u.equals(start)) {
+			list.add(u);
+			u = previous.get(u);
+		}
+		
+		list.add(start);
+		
+		Path path = new PathImpl(graph);
+		
+		for(int i = list.size()-1; i >= 0; i--) {
+			path.addTarget(list.get(i));
+		}
+		
+		return path;
 	}
 
 	@Override

@@ -2,7 +2,7 @@ package com.olbius.algorithms.core;
 
 public interface Path extends ObjectGraph{
 	
-	Object[] getConnect();
+	Object getConnect();
 	
 	Object calcRoute();
 	
@@ -11,4 +11,12 @@ public interface Path extends ObjectGraph{
 	boolean contains(Node node);
 	
 	boolean contains(Path path);
+	
+	Node getStart();
+	
+	Node getTarget();
+	
+	Node getNode(int index);
+	
+	int getSize();
 }

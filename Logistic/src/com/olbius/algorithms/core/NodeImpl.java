@@ -10,6 +10,9 @@ public class NodeImpl implements Node{
 	
 	@Override
 	public int compareTo(Node o) {
+		if(o.equals(this)) {
+			return 0;
+		}
 		return this.index - (Integer)o.getName();
 	}
 
