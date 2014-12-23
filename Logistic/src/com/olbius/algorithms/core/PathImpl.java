@@ -30,7 +30,11 @@ public class PathImpl implements Path{
 
 	@Override
 	public Object calcRoute() {
-		return null;
+		int sum = 0;
+		for(int i = 1; i < path.size(); i++) {
+			sum += (int) graph.getWeight(path.get(i-1), path.get(i));
+		}
+		return sum;
 	}
 
 	@Override

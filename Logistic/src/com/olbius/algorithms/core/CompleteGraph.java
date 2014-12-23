@@ -51,7 +51,7 @@ public class CompleteGraph implements Graph{
 	@Override
 	public Node getNode(Object name) {
 		Node node = new NodeImpl((int) name);
-		return nodes.floor(node);
+		return nodes.contains(node)?nodes.floor(node):null;
 	}
 
 	@Override
@@ -63,7 +63,9 @@ public class CompleteGraph implements Graph{
 
 	@Override
 	public void addEdge(Edge edge) {
-		addEdge(edge.getStart(), edge.getTarget(), edge.getWeight());
+		addNode(edge.getStart());
+		addNode(edge.getTarget());
+		edges.get(edge.getStart()).put(edge.getTarget(), edge);
 	}
 
 	@Override
@@ -95,5 +97,13 @@ public class CompleteGraph implements Graph{
 		}
 		nodes.add(node);
 		size++;
+	}
+	
+	@Override
+	public String toString() {
+		String string = "";
+		string += nodes.toString();
+		string += "\n" + edges.toString();
+		return string;
 	}
 }
