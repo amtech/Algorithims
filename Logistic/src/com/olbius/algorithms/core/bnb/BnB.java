@@ -37,6 +37,7 @@ public class BnB {
 		while (!activeproblems.isEmpty()) {
 			Pi = selectProblem();
 			Ri = Pi.getRelaxation();
+			System.out.println(Ri);
 			Li = Ri.getValue();
 			if (Li < U) {
 				if (P.isValid(Ri.getSolution())) {
