@@ -1,19 +1,18 @@
 package com.olbius.algorithms.core.bnb;
 
-public interface OptimizationProblem extends Comparable<OptimizationProblem> {
+import java.util.List;
 
-	OptimizationProblem getRelaxation();
-
+public interface OptimizationProblem extends Comparable<OptimizationProblem>{
+	
+	void relaxation();
+	
 	int getProblemSize();
 
-	int getValue();
+	Object getValue();
 
-	OptimizationProblemSolution getSolution();
+	boolean isSolution();
 
-	boolean isValid(OptimizationProblemSolution ops);
+	List<OptimizationProblem> branch();
 
-	OptimizationProblem[] branch();
-
-	void performUpperBounding(int upperbound);
-
+	void performUpperBounding(Object upperbound);
 }

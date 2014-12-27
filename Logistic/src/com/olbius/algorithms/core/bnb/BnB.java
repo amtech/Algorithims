@@ -1,10 +1,10 @@
 package com.olbius.algorithms.core.bnb;
 
 import java.util.Date;
+import java.util.List;
 import java.util.TreeSet;
 
 public class BnB {
-
 	private OptimizationProblem P;
 
 	private int U;
@@ -21,40 +21,45 @@ public class BnB {
 	
 	public BnB(OptimizationProblem problem) {
 		this.P = problem;
-		int n = P.getProblemSize();
 		activeproblems = new TreeSet<OptimizationProblem>();
 		activeproblems.add(P);
 		U = M;
 	}
 
 	public OptimizationProblem solve() {
-		OptimizationProblem Pi;
 		OptimizationProblem Ri;
 		int Li;
 
 		Date d0 = new Date();
 		
 		while (!activeproblems.isEmpty()) {
-			Pi = selectProblem();
-			Ri = Pi.getRelaxation();
-			System.out.println(Ri);
-			Li = Ri.getValue();
+			Ri = selectProblem();
+			Li = (int) Ri.getValue();
+//			System.out.println(Li);
 			if (Li < U) {
-				if (P.isValid(Ri.getSolution())) {
+				if (Ri.isSolution()) {
 					U = Li;
 					this.currentbest = Ri;
 				} else {
 					// optional upper bounding
 					Ri.performUpperBounding(U);
 					// Branching
-					OptimizationProblem[] subPs = Ri.branch();
-					for (int k = 0; k < subPs.length; k++) {
-						this.activeproblems.add(subPs[k]);
+					List<OptimizationProblem> subPs = Ri.branch();
+					
+//					System.out.println(subPs);
+					
+					for (OptimizationProblem op :subPs) {
+						this.activeproblems.add(op);
 						this.nodesGenerated++;
 					} 
 				}
 			}
 		} 
+		
+		System.out.println(currentbest.getValue());
+		
+		System.out.println(((OptimizationProblemImpl)currentbest).getMap());
+		
 		Date d1 = new Date();
 		this.elapsedTime = (double) (d1.getTime() - d0.getTime()) / 1000;
 		return currentbest;
