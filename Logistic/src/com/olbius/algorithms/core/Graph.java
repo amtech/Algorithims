@@ -22,4 +22,5 @@ public interface Graph {
 	
 	Edge[] getEdges();
 	
+	Edge getEdge(Node start, Node target);
 }

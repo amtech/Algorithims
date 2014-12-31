@@ -51,7 +51,8 @@ public class BnB {
 					for (OptimizationProblem op :subPs) {
 						this.activeproblems.add(op);
 						this.nodesGenerated++;
-					} 
+					}
+//					System.out.println(this.nodesGenerated);
 				}
 			}
 		} 

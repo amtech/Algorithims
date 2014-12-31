@@ -7,7 +7,6 @@ import java.util.Set;
 
 public class OptimizationProblemImpl implements OptimizationProblem{
 
-	private OptimizationProblem parent;
 	private Matrix matrix;
 	private Element element;
 	private int value;
@@ -16,7 +15,6 @@ public class OptimizationProblemImpl implements OptimizationProblem{
 	private int upperbound;
 	
 	public OptimizationProblemImpl(OptimizationProblem parent, Element e) {
-		this.parent = parent;
 		
 		this.map = new HashMap<Integer, Integer>();
 		
@@ -167,9 +165,9 @@ public class OptimizationProblemImpl implements OptimizationProblem{
 		}
 	}
 
-	public void setParent(OptimizationProblem parent) {
-		this.parent = parent;
-	}
+//	public void setParent(OptimizationProblem parent) {
+//		this.parent = parent;
+//	}
 	
 	public void setMatrix(Matrix matrix) {
 		this.matrix = matrix;

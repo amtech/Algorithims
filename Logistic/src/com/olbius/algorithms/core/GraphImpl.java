@@ -111,4 +111,9 @@ public class GraphImpl implements Graph{
 		string += "\n" + edges.toString();
 		return string;
 	}
+
+	@Override
+	public Edge getEdge(Node start, Node target) {
+		return isEdge(start, target) ? edges.get(start).get(target) : null;
+	}
 }
