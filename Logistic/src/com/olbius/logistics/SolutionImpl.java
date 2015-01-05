@@ -1,5 +1,6 @@
 package com.olbius.logistics;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -14,6 +15,12 @@ public class SolutionImpl implements Solution {
 	private Car car;
 
 	private int value;
+	
+	public SolutionImpl(Car car) {
+		this.car = car;
+		customers = new ArrayList<Customer>();
+		paths = new ArrayList<Path>();
+	}
 	
 	@Override
 	public Path getPathStart() {
@@ -77,6 +84,7 @@ public class SolutionImpl implements Solution {
 	}
 	
 	public void setWeight() {
+		car.setWeight(0);
 		for(Customer c : customers) {
 			car.setWeight((int)car.getWeight() + (int)c.getRequest().getWeight());
 		}
@@ -144,5 +152,13 @@ public class SolutionImpl implements Solution {
 	@Override
 	public Customer getLast() {
 		return customers.get(customers.size()-1);
+	}
+	
+	@Override
+	public String toString() {
+		String s = "";
+		s += customers.toString() + "\n";
+		s += paths.toString() + "\n" + "car : " + car.getWeight();
+		return s;
 	}
 }

@@ -25,6 +25,9 @@ public class EdgeLogistic extends EdgeImpl {
 		return this.cost;
 	}
 	
-	
+	@Override
+	public String toString() {
+		return super.toString() + " " + cost;
+	}
 	
 }

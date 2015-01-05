@@ -56,4 +56,9 @@ public class LogisticPathImpl extends PathImpl implements LogisticPath{
 		return this.weight;
 	}
 
+	@Override
+	public String toString() {
+		return super.toString();
+	}
+	
 }

@@ -17,7 +17,7 @@ public class GraphLogistic extends GraphImpl {
 	
 	@Override
 	public Object getWeight(Node start, Node target) {
-		int w = (int) getWeight(start, target);
+		int w = (int) super.getWeight(start, target);
 		if(m > 0) {
 			w += ((EdgeLogistic)getEdge(start, target)).getCost()*m;
 		}
