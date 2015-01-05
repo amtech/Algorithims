@@ -149,6 +149,8 @@ public class AlgorithmLogistic implements Algorithm {
 
 //		((SolutionImpl)solution).setWeight();
 		
+		solution.calcRoute();
+		
 		if(!stack.isEmpty()) {
 			algorithm(solution, stack.pop());
 		} else {

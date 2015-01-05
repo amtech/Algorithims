@@ -58,7 +58,7 @@ public class LogisticPathImpl extends PathImpl implements LogisticPath{
 
 	@Override
 	public String toString() {
-		return super.toString();
+		return super.toString() + " - weight : " + Integer.toString(weight);
 	}
 	
 }

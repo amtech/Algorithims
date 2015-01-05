@@ -70,9 +70,16 @@ public class SolutionImpl implements Solution {
 
 	@Override
 	public void calcRoute() {
-		for(Path p : paths) {
+		value = 0;
+		int w = (int) car.getWeight();
+		for(int i = 0; i < paths.size(); i++) {
+			Path p = paths.get(i);
+			((LogisticPath)p).setWeight(w);
 			((GraphLogistic)p.getGraph()).setM((int)((LogisticPath)p).getWeight());
 			value += (int) p.calcRoute();
+			if(w > 0) {
+				w -= (int) customers.get(i).getRequest().getWeight();
+			}
 		}
 	}
 
@@ -129,7 +136,7 @@ public class SolutionImpl implements Solution {
 
 	@Override
 	public void add(Customer customer, List<Path> list, int index) {
-		customers.add(customer);
+		customers.add(index, customer);
 		
 		paths.remove(index);
 		
@@ -158,7 +165,7 @@ public class SolutionImpl implements Solution {
 	public String toString() {
 		String s = "";
 		s += customers.toString() + "\n";
-		s += paths.toString() + "\n" + "car : " + car.getWeight();
+		s += paths.toString() + "\n" + "car : " + car.getWeight() + " - value : " + Integer.toString(value);
 		return s;
 	}
 }
