@@ -168,4 +168,9 @@ public class SolutionImpl implements Solution {
 		s += paths.toString() + "\n" + "car : " + car.getWeight() + " - value : " + Integer.toString(value);
 		return s;
 	}
+
+	@Override
+	public Object getPaths() {
+		return this.paths;
+	}
 }

@@ -38,4 +38,6 @@ public interface Solution {
 	Customer getFirst();
 	
 	Customer getLast();
+	
+	Object getPaths();
 }
