@@ -8,6 +8,14 @@ public class CarImpl implements Car{
 	private int weight;
 	private Node curNode;
 	
+	public CarImpl() {
+		// TODO Auto-generated constructor stub
+	}
+	
+	public CarImpl(int max) {
+		this.maxWeight = max;
+	}
+	
 	@Override
 	public Object getWeight() {
 		return this.weight;
@@ -31,6 +39,11 @@ public class CarImpl implements Car{
 	@Override
 	public void setWeight(Object weight) {
 		this.weight = (int) weight;
+	}
+
+	@Override
+	public boolean isAdd(Object weight) {
+		return this.weight + (int)weight <= this.maxWeight;
 	}
 
 }

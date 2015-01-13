@@ -13,4 +13,6 @@ public interface Car {
 	void setCurNode(Node node);
 	
 	void setWeight(Object weight);
+	
+	boolean isAdd(Object weight);
 }

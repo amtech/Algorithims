@@ -2,7 +2,6 @@ package com.olbius.logistics;
 
 import java.util.List;
 
-import com.olbius.algorithms.core.Node;
 import com.olbius.algorithms.core.Path;
 
 public interface Solution {

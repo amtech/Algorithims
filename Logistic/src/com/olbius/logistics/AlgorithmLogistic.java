@@ -1,9 +1,7 @@
 package com.olbius.logistics;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Stack;
 
 import com.olbius.algorithms.core.Algorithm;
@@ -16,7 +14,6 @@ public class AlgorithmLogistic implements Algorithm {
 
 	private Node facility;
 	private Graph graph;
-	private int m;
 
 	private Stack<Customer> stack;
 	
@@ -32,7 +29,7 @@ public class AlgorithmLogistic implements Algorithm {
 		this.stack.push(customer);
 	}
 	
-	public Solution algorithm() {
+	/*public Solution algorithm() {
 		Solution solution = new SolutionImpl(new CarImpl());
 		
 		if(!stack.isEmpty()) {
@@ -40,7 +37,7 @@ public class AlgorithmLogistic implements Algorithm {
 		}
 		
 		return solution;
-	}
+	}*/
 	
 	public void algorithm(Solution solution, Customer customer) {
 
@@ -232,8 +229,13 @@ public class AlgorithmLogistic implements Algorithm {
 
 	@Override
 	public Object runAlgorithm() {
-		// TODO Auto-generated method stub
-		return null;
+		Solution solution = new SolutionImpl(new CarImpl());
+		
+		if(!stack.isEmpty()) {
+			algorithm(solution, stack.pop());
+		}
+		
+		return solution;
 	}
 
 	public void setFacility(Node facility) {
