@@ -26,6 +26,13 @@ public class BnB {
 		U = M;
 	}
 
+	public void setProblem(OptimizationProblem problem) {
+		this.P = problem;
+		activeproblems = new TreeSet<OptimizationProblem>();
+		activeproblems.add(P);
+		U = M;
+	}
+	
 	public OptimizationProblem solve() {
 		OptimizationProblem Ri;
 		int Li;

@@ -17,6 +17,8 @@ public class MatrixImpl implements Matrix{
 	
 	public MatrixImpl() {
 		data = new HashMap<Row, Map<Column,Element>>();
+		rows = new ArrayList<Row>();
+		columns = new ArrayList<Column>();
 	}
 	
 	public MatrixImpl(int[][] matrix) {
@@ -162,6 +164,24 @@ public class MatrixImpl implements Matrix{
 	
 	public List<Row> getRows() {
 		return rows;
+	}
+	
+	public Row getRow(int index) {
+		for(Row row : rows) {
+			if(row.getIndex() == index) {
+				return row;
+			}
+		}
+		return null;
+	}
+	
+	public Column getCol(int index) {
+		for(Column col : columns) {
+			if(col.getIndex() == index) {
+				return col;
+			}
+		}
+		return null;
 	}
 	
 	public void setColumns(List<Column> columns) {

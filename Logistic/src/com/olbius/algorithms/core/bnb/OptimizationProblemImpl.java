@@ -39,6 +39,17 @@ public class OptimizationProblemImpl implements OptimizationProblem{
 		relaxation();
 	}
 	
+
+	public OptimizationProblemImpl(Matrix matrix) {
+		this.matrix = matrix;
+		
+		this.map = new HashMap<Integer, Integer>();
+		
+		this.upperbound = Integer.MAX_VALUE;
+		
+		relaxation();
+	}
+	
 	public HashMap<Integer, Integer> getMap() {
 		return map;
 	}
@@ -85,7 +96,12 @@ public class OptimizationProblemImpl implements OptimizationProblem{
 		for(Element e : elements) {
 			Element _min_r = m.getMinRowZero(e);
 			Element _min_c = m.getMinColZero(e);
-			int tmp  = (int) _min_r.getValue() + (int) _min_c.getValue();
+			int tmp;
+			if(_min_r == null || _min_c == null) {
+				tmp = Integer.MAX_VALUE;
+			} else {
+				tmp  = (int) _min_r.getValue() + (int) _min_c.getValue();
+			}
 			if (tmp > _q) {
 				_q = tmp;
 				_e = e;
@@ -141,11 +157,11 @@ public class OptimizationProblemImpl implements OptimizationProblem{
 
 	public void inf() {
 		for(int i : map.keySet()) {
-			Column col = ((MatrixImpl) matrix).getColumns().get(i);
+			Column col = ((MatrixImpl) matrix).getCol(i);
 			int j = i;
 			while(map.get(j) != null) {
 				j = map.get(j);
-				Row row = ((MatrixImpl) matrix).getRows().get(j);
+				Row row = ((MatrixImpl) matrix).getRow(j);
 				matrix.setValue(row, col, Integer.MAX_VALUE);
 			}
 		}
