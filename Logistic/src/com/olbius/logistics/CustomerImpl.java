@@ -33,9 +33,10 @@ public class CustomerImpl implements Customer{
 
 	@Override
 	public String toString() {
-		String s = "";
-		s += node.toString() + " : " + request.toString();
-		return s;
+//		String s = "";
+//		s += node.toString() + " : " + request.toString();
+//		return s;
+		return node.toString();
 	}
 	
 }

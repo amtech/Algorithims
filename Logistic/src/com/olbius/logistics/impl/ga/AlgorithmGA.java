@@ -2,12 +2,15 @@ package com.olbius.logistics.impl.ga;
 
 import com.olbius.algorithms.core.Algorithm;
 import com.olbius.algorithms.core.Graph;
+import com.olbius.algorithms.core.Node;
 import com.olbius.alogorithms.core.ga.Operations;
 import com.olbius.alogorithms.core.ga.Population;
 
 public class AlgorithmGA implements Algorithm {
 
 	private Graph graph;
+	
+	private Node node;
 	
 	private Operations operation;
 	
@@ -20,6 +23,8 @@ public class AlgorithmGA implements Algorithm {
 	private int crossProb;
 	
 	private int mutationProb;
+	
+	private int maxW;
 	
 	@Override
 	public void setGraph(Graph graph) {
@@ -37,6 +42,10 @@ public class AlgorithmGA implements Algorithm {
 		operation.setCrossProbability(crossProb);
 		operation.setMutionProbability(mutationProb);
 		operation.setPopSize(popSize);
+		
+		((PopulationImpl) population).setNode(node);
+		
+		((PopulationImpl) population).setMaxW(maxW);
 		
 		population.initi(popSize);
 		
@@ -79,5 +88,17 @@ public class AlgorithmGA implements Algorithm {
 	
 	public void setPopulation(Population population) {
 		this.population = population;
+	}
+	
+	public void setNode(Node node) {
+		this.node = node;
+	}
+	
+	public Population getPopulation() {
+		return population;
+	}
+	
+	public void setMaxW(int maxW) {
+		this.maxW = maxW;
 	}
 }

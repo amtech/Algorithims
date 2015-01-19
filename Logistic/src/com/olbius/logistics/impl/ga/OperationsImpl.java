@@ -44,16 +44,20 @@ public class OperationsImpl implements Operations{
 	}
 	
 	@Override
-	public Individual crossover(Individual individual, Individual individual2) {
+	public List<Individual> crossover(Individual individual, Individual individual2) {
 		cross.setParentOne(individual);
 		cross.setParentTwo(individual2);
 		cross.crossover();
-		return cross.getChildOne();
+		List<Individual> individuals = new ArrayList<Individual>();
+		individuals.add(cross.getChildOne());
+		individuals.add(cross.getChildTwo());
+		return individuals;
 	}
 
 	@Override
 	public Individual mutation(Individual individual) {
 		mutation.setIndividual(individual);
+		mutation.mutation();
 		return mutation.getChild();
 	}
 
@@ -61,6 +65,7 @@ public class OperationsImpl implements Operations{
 	public Population selection(Population pop) {
 		selection.setPopulation(pop);
 		selection.setSize(popSize);
+		selection.selection();
 		return selection.getPopulation();
 	}
 	
@@ -95,8 +100,14 @@ public class OperationsImpl implements Operations{
 			int one,two;
 			one = two = -1;
 			while(one == two) {
-				one = (int)((list.size()-1)*random.nextDouble());
-				two = (int)((list.size()-1)*random.nextDouble());
+				one = (int)(list.size()*random.nextDouble());
+				while(one == list.size()) {
+					one = (int)(list.size() *random.nextDouble());
+				}
+				two = (int)(list.size()*random.nextDouble());
+				while(two == list.size()) {
+					two = (int)(list.size() *random.nextDouble());
+				}
 				map.put(list.get(one), list.get(two));
 			}
 			if(one > two) {
@@ -110,7 +121,13 @@ public class OperationsImpl implements Operations{
 			i+=2;
 		}
 		for(int x : map.keySet()) {
-			crossover(pop.getIndividual(x), pop.getIndividual(map.get(x)));
+			List<Individual> individuals = crossover(pop.getIndividual(x), pop.getIndividual(map.get(x)));
+			for(Individual ind : individuals) {
+				if(!pop.contain(ind)) {
+					ind.calcFitness();
+					pop.addIndividual(ind);
+				}
+			}
 		}
 	}
 
@@ -130,13 +147,20 @@ public class OperationsImpl implements Operations{
 		int rate = pop.size()*mutationProb/100;
 		
 		while(i < rate) {
-			int m = (int)((list.size()-1)*random.nextDouble());
+			int m = (int)(list.size() *random.nextDouble());
+			while(m == list.size()) {
+				m = (int)(list.size() *random.nextDouble());
+			}
 			list2.add(list.get(m));
 			list.remove(m);
 			i++;
 		}
 		for(int x : list2) {
-			mutation(pop.getIndividual(x));
+			Individual ind = mutation(pop.getIndividual(x));
+			if(!pop.contain(ind)) {
+				ind.calcFitness();
+				pop.addIndividual(ind);
+			}
 		}
 	}
 

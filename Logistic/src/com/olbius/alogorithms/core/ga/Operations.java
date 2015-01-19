@@ -1,8 +1,10 @@
 package com.olbius.alogorithms.core.ga;
 
+import java.util.List;
+
 public interface Operations {
 
-	Individual crossover(Individual individual, Individual individual2);
+	List<Individual> crossover(Individual individual, Individual individual2);
 	
 	Individual mutation(Individual individual);
 	

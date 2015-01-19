@@ -64,9 +64,9 @@ public class BnB {
 			}
 		} 
 		
-		System.out.println(currentbest.getValue());
+//		System.out.println(currentbest.getValue());
 		
-		System.out.println(((OptimizationProblemImpl)currentbest).getMap());
+//		System.out.println(((OptimizationProblemImpl)currentbest).getMap());
 		
 		Date d1 = new Date();
 		this.elapsedTime = (double) (d1.getTime() - d0.getTime()) / 1000;

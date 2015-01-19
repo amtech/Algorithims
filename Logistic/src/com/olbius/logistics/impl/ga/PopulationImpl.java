@@ -1,14 +1,24 @@
 package com.olbius.logistics.impl.ga;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
+import com.olbius.algorithms.core.Graph;
+import com.olbius.algorithms.core.Node;
 import com.olbius.alogorithms.core.ga.Individual;
 import com.olbius.alogorithms.core.ga.Population;
 
 public class PopulationImpl implements Population{
 
 	private List<Individual> individuals;
+	
+	private Graph graph;
+	
+	private Node node;
+	
+	private int maxW;
 	
 	public PopulationImpl() {
 		individuals = new ArrayList<Individual>();
@@ -41,6 +51,7 @@ public class PopulationImpl implements Population{
 
 	@Override
 	public void initi(int size) {
+		
 		OperationsImpl.random.setSeed(System.currentTimeMillis());
 		
 		Individual individual;
@@ -51,9 +62,11 @@ public class PopulationImpl implements Population{
 			
 			if(!contain(individual)) {
 				addIndividual(individual);
+				((IndividualImpl)individual).setGraph(graph);
+				((IndividualImpl)individual).setMaxW(maxW);
+				((IndividualImpl)individual).setNode(node);
 				individual.calcFitness();
 			}
-			
 		}
 		
 	}
@@ -63,4 +76,28 @@ public class PopulationImpl implements Population{
 		return individuals.size();
 	}
 
+	@Override
+	public String toString() {
+		String s = "";
+		for(Individual ind : individuals) {
+			s += ind.toString() + "\n";
+		}
+		return s;
+	}
+	
+	public void setGraph(Graph graph) {
+		this.graph = graph;
+	}
+	
+	public void setNode(Node node) {
+		this.node = node;
+	}
+	
+	public void sort() {
+		Collections.sort(individuals);
+	}
+	
+	public void setMaxW(int maxW) {
+		this.maxW = maxW;
+	}
 }

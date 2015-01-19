@@ -7,4 +7,6 @@ public interface Chromosome {
 	void addGene(Gene gene);
 	
 	int getSize();
+	
+	Object getValue();
 }

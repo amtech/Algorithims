@@ -3,7 +3,10 @@ package com.olbius.logistics.impl.ga;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.olbius.algorithms.core.Graph;
+import com.olbius.algorithms.core.Node;
 import com.olbius.alogorithms.core.ga.Chromosome;
+import com.olbius.alogorithms.core.ga.Gene;
 import com.olbius.alogorithms.core.ga.Individual;
 
 public class IndividualImpl implements Individual{
@@ -14,6 +17,10 @@ public class IndividualImpl implements Individual{
 	
 	public IndividualImpl() {
 		this.chromosome = new ChromosomeImpl();
+	}
+	
+	public IndividualImpl(List<Gene> genes) {
+		this.chromosome = new ChromosomeImpl(genes);
 	}
 	
 	@Override
@@ -34,7 +41,7 @@ public class IndividualImpl implements Individual{
 	
 	@Override
 	public String toString() {
-		return chromosome.toString();
+		return chromosome.toString() + " -- fitness : " + fitness;
 	}
 	
 	@Override
@@ -45,6 +52,32 @@ public class IndividualImpl implements Individual{
 
 	@Override
 	public void calcFitness() {
-		
+		((ChromosomeImpl)chromosome).calcValue();
+		fitness = (int) chromosome.getValue();
+	}
+	
+	public void setMaxW(int maxW) {
+		((ChromosomeImpl)chromosome).setMaxW(maxW);
+	}
+	
+	public int getMaxW() {
+		return ((ChromosomeImpl)chromosome).getMaxW();
+	}
+	
+	public void setGraph(Graph graph) {
+	 ((ChromosomeImpl)chromosome).setGraph(graph);
+	}
+	
+	public void setNode(Node node) {
+		((ChromosomeImpl)chromosome).setNode(node);
+	}
+
+	@Override
+	public int compareTo(Individual o) {
+		return this.fitness - (int)o.getFitness();
+	}
+	
+	public Node getNode() {
+		return ((ChromosomeImpl) chromosome).getNode();
 	}
 }
