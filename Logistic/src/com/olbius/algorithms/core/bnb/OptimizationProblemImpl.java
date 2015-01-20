@@ -13,8 +13,11 @@ public class OptimizationProblemImpl implements OptimizationProblem{
 	private HashMap<Integer, Integer> map;
 	private boolean solution;
 	private int upperbound;
+	private int weight;
 	
 	public OptimizationProblemImpl(OptimizationProblem parent, Element e) {
+		
+		this.weight = 0;
 		
 		this.map = new HashMap<Integer, Integer>();
 		
@@ -30,6 +33,9 @@ public class OptimizationProblemImpl implements OptimizationProblem{
 	}
 	
 	public OptimizationProblemImpl(int[][] matrix) {
+		
+		this.weight = 0;
+		
 		this.matrix = new MatrixImpl(matrix);
 		
 		this.map = new HashMap<Integer, Integer>();
@@ -41,6 +47,9 @@ public class OptimizationProblemImpl implements OptimizationProblem{
 	
 
 	public OptimizationProblemImpl(Matrix matrix) {
+		
+		this.weight = 0;
+		
 		this.matrix = matrix;
 		
 		this.map = new HashMap<Integer, Integer>();
@@ -198,5 +207,13 @@ public class OptimizationProblemImpl implements OptimizationProblem{
 	@Override
 	public void performUpperBounding(Object upperbound) {
 		this.upperbound = (int) upperbound;
+	}
+	
+	public int getWeight() {
+		return weight;
+	}
+	
+	public void addWeight(int w) {
+		weight += w;
 	}
 }

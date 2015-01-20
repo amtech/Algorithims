@@ -241,6 +241,7 @@ public class ChromosomeImpl implements Chromosome{
 		List<OptimizationProblem> problems = new ArrayList<OptimizationProblem>();
 		
 		Map<Integer, List<Gene>> map = new HashMap<Integer, List<Gene>>();
+		Map<Integer, Integer> map2 = new HashMap<Integer, Integer>();
 		int i = 0;
 		int index = 0;
 		int sum = 0;
@@ -254,11 +255,13 @@ public class ChromosomeImpl implements Chromosome{
 				index++;
 			} else {
 				map.get(index).add(genes.get(i));
+				map2.put(index, sum);
 				i++;
 			}
 		}
 		for(int j : map.keySet()) {
 			problems.add(getSolution(map.get(j)));
+			((OptimizationProblemImpl)problems.get(problems.size()-1)).addWeight(map2.get(j));
 		}
 		
 		return problems;
