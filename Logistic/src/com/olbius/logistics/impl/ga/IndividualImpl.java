@@ -80,4 +80,9 @@ public class IndividualImpl implements Individual{
 	public Node getNode() {
 		return ((ChromosomeImpl) chromosome).getNode();
 	}
+
+	@Override
+	public Object getSolution() {
+		return ((ChromosomeImpl) chromosome).getSolution();
+	}
 }

@@ -196,6 +196,21 @@ public class ChromosomeImpl implements Chromosome{
 		
 		((MatrixImpl) matrix).initValue(row, column, Integer.MAX_VALUE);
 		
+		for(Gene gene2 : list) {
+			Node i = ((Customer)gene2.getInfo()).getNode();
+			row = rows.get(i.getName());
+			if(row == null) {
+				row = new RowImpl((int) i.getName());
+				rows.put((Integer) i.getName(), row);
+				((MatrixImpl) matrix).getRows().add(row);
+			}
+			if(!node.equals(i)) {
+				((MatrixImpl) matrix).initValue(row, column, graph.getWeight(i, node));
+			} else {
+				((MatrixImpl) matrix).initValue(row, column, Integer.MAX_VALUE);
+			}
+		}
+		
 		OptimizationProblem problem = new OptimizationProblemImpl(matrix);
 		
 		BnB bnB = new BnB(problem);
@@ -220,6 +235,118 @@ public class ChromosomeImpl implements Chromosome{
 	
 	public Node getNode() {
 		return node;
+	}
+	
+	public List<OptimizationProblem> getSolution() {
+		List<OptimizationProblem> problems = new ArrayList<OptimizationProblem>();
+		
+		Map<Integer, List<Gene>> map = new HashMap<Integer, List<Gene>>();
+		int i = 0;
+		int index = 0;
+		int sum = 0;
+		while(i < genes.size()) {
+			if(map.get(index) == null) {
+				map.put(index, new ArrayList<Gene>());
+			}
+			sum += (int)((Customer)genes.get(i).getInfo()).getRequest().getWeight();
+			if(sum > maxW) {
+				sum = 0;
+				index++;
+			} else {
+				map.get(index).add(genes.get(i));
+				i++;
+			}
+		}
+		for(int j : map.keySet()) {
+			problems.add(getSolution(map.get(j)));
+		}
+		
+		return problems;
+	}
+	
+	public OptimizationProblem getSolution(List<Gene> list) {
+		Map<Integer, Row> rows = new HashMap<Integer, Row>();
+		Map<Integer, Column> columns = new HashMap<Integer, Column>();
+		
+		Matrix matrix = new MatrixImpl();
+		
+		for(Gene gene1 : list) {
+			Node i = ((Customer)gene1.getInfo()).getNode();
+			Row row = rows.get(i.getName());
+			if(row == null) {
+				row = new RowImpl((int) i.getName());
+				rows.put((Integer) i.getName(), row);
+				((MatrixImpl) matrix).getRows().add(row);
+			}
+			for(Gene gene2 : list) {
+				Node j = ((Customer)gene2.getInfo()).getNode();
+				Column column = columns.get(j.getName());
+				if(column == null) {
+					column = new ColumnImpl((int) j.getName());
+					columns.put((Integer) j.getName(), column);
+					((MatrixImpl) matrix).getColumns().add(column);
+				}
+				if(!gene1.equals(gene2)) {
+					((MatrixImpl) matrix).initValue(row, column, graph.getWeight(i, j));
+				} else {
+					((MatrixImpl) matrix).initValue(row, column, Integer.MAX_VALUE);
+				}
+			}
+		}
+		
+		Row row = rows.get(node.getName());
+		if(row == null) {
+			row = new RowImpl((int) node.getName());
+			rows.put((Integer) node.getName(), row);
+			((MatrixImpl) matrix).getRows().add(row);
+		}
+		
+		for(Gene gene2 : list) {
+			Node j = ((Customer)gene2.getInfo()).getNode();
+			Column column = columns.get(j.getName());
+			if(column == null) {
+				column = new ColumnImpl((int) j.getName());
+				columns.put((Integer) j.getName(), column);
+				((MatrixImpl) matrix).getColumns().add(column);
+			}
+			if(!node.equals(j)) {
+				((MatrixImpl) matrix).initValue(row, column, graph.getWeight(node, j));
+			} else {
+				((MatrixImpl) matrix).initValue(row, column, Integer.MAX_VALUE);
+			}
+		}
+		
+		Column column = columns.get(node.getName());
+		if(column == null) {
+			column = new ColumnImpl((int) node.getName());
+			columns.put((Integer) node.getName(), column);
+			((MatrixImpl) matrix).getColumns().add(column);
+		}
+		
+		((MatrixImpl) matrix).initValue(row, column, Integer.MAX_VALUE);
+		
+		for(Gene gene2 : list) {
+			Node i = ((Customer)gene2.getInfo()).getNode();
+			row = rows.get(i.getName());
+			if(row == null) {
+				row = new RowImpl((int) i.getName());
+				rows.put((Integer) i.getName(), row);
+				((MatrixImpl) matrix).getRows().add(row);
+			}
+			if(!node.equals(i)) {
+				((MatrixImpl) matrix).initValue(row, column, graph.getWeight(i, node));
+			} else {
+				((MatrixImpl) matrix).initValue(row, column, Integer.MAX_VALUE);
+			}
+		}
+		
+		OptimizationProblem problem = new OptimizationProblemImpl(matrix);
+		
+		BnB bnB = new BnB(problem);
+		
+		problem = bnB.solve();
+		
+		return problem;
 	}
 	
 	/*public void swap(int pointOne, int pointTwo) {

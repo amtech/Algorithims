@@ -9,4 +9,6 @@ public interface Individual extends Comparable<Individual> {
 	List<Chromosome> getChromosomes();
 	
 	void calcFitness();
+	
+	Object getSolution();
 }
