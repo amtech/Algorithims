@@ -8,6 +8,7 @@ import com.olbius.algorithms.core.Graph;
 import com.olbius.algorithms.core.Node;
 import com.olbius.alogorithms.core.ga.Individual;
 import com.olbius.alogorithms.core.ga.Population;
+import com.olbius.alogorithms.core.ga.operations.Calculate;
 
 public class PopulationImpl implements Population{
 
@@ -18,6 +19,8 @@ public class PopulationImpl implements Population{
 	private Node node;
 	
 	private int maxW;
+	
+	private Calculate calculate;
 	
 	public PopulationImpl() {
 		individuals = new ArrayList<Individual>();
@@ -64,6 +67,7 @@ public class PopulationImpl implements Population{
 				((IndividualImpl)individual).setGraph(graph);
 				((IndividualImpl)individual).setMaxW(maxW);
 				((IndividualImpl)individual).setNode(node);
+				((IndividualImpl)individual).setCalculate(calculate);
 				individual.calcFitness();
 			}
 		}
@@ -98,5 +102,9 @@ public class PopulationImpl implements Population{
 	
 	public void setMaxW(int maxW) {
 		this.maxW = maxW;
+	}
+	
+	public void setCalculate(Calculate calculate) {
+		this.calculate = calculate;
 	}
 }

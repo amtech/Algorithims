@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
+import java.util.TreeSet;
 
 import com.olbius.algorithms.core.Graph;
 import com.olbius.algorithms.core.Node;
@@ -18,6 +20,7 @@ import com.olbius.algorithms.core.bnb.Row;
 import com.olbius.algorithms.core.bnb.RowImpl;
 import com.olbius.alogorithms.core.ga.Chromosome;
 import com.olbius.alogorithms.core.ga.Gene;
+import com.olbius.alogorithms.core.ga.operations.Calculate;
 import com.olbius.logistics.Customer;
 
 public class ChromosomeImpl implements Chromosome{
@@ -33,6 +36,8 @@ public class ChromosomeImpl implements Chromosome{
 	private int value;
 	
 	private Node node;
+	
+	private Calculate calculate;
 	
 	public ChromosomeImpl() {
 		genes = new ArrayList<Gene>();
@@ -135,6 +140,18 @@ public class ChromosomeImpl implements Chromosome{
 	}
 	
 	public int calcValue(List<Gene> list) {
+		Set<Object> set = null;
+		
+		if(calculate != null) {
+			set = new TreeSet<Object>();
+			for(Gene gene1 : list) {
+				set.add(((Customer)gene1.getInfo()).getNode().getName());
+			}
+			int calc =  (int) calculate.getCalc(set);
+			if(calc > -1) {
+				return calc;
+			}
+		}
 		
 		Map<Integer, Row> rows = new HashMap<Integer, Row>();
 		Map<Integer, Column> columns = new HashMap<Integer, Column>();
@@ -216,6 +233,10 @@ public class ChromosomeImpl implements Chromosome{
 		BnB bnB = new BnB(problem);
 		
 		problem = bnB.solve();
+		
+		if(calculate != null) {
+			calculate.insertCalc(set,  problem.getValue());
+		}
 		
 		return (int) problem.getValue();
 		
@@ -362,4 +383,7 @@ public class ChromosomeImpl implements Chromosome{
 		genes.remove(pointTwo);
 		genes.add(pointTwo, geneOne);
 	}*/
+	public void setCalculate(Calculate calculate) {
+		this.calculate = calculate;
+	}
 }

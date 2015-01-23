@@ -8,6 +8,7 @@ import com.olbius.algorithms.core.Node;
 import com.olbius.alogorithms.core.ga.Chromosome;
 import com.olbius.alogorithms.core.ga.Gene;
 import com.olbius.alogorithms.core.ga.Individual;
+import com.olbius.alogorithms.core.ga.operations.Calculate;
 
 public class IndividualImpl implements Individual{
 
@@ -84,5 +85,9 @@ public class IndividualImpl implements Individual{
 	@Override
 	public Object getSolution() {
 		return ((ChromosomeImpl) chromosome).getSolution();
+	}
+	
+	public void setCalculate(Calculate calculate) {
+		((ChromosomeImpl)this.chromosome).setCalculate(calculate);
 	}
 }
