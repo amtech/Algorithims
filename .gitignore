@@ -44,3 +44,6 @@ Temporary Items
 Logistic/bin
 Logistic/build
 Logistic/.gitignore
+ETL/bin
+ETL/build
+ETL/.gitignore
